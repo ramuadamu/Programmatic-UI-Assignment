@@ -10,6 +10,9 @@ import UIKit
 
 protocol MainViewDelegate: AnyObject {
     func seguePressed()
+    func typedMessage(str: String)
+    
+    
 }
 
 class MainView: UIView {
@@ -19,7 +22,8 @@ class MainView: UIView {
     lazy var mainTextField: UITextField = {
         let textfield = UITextField()
         textfield.backgroundColor = .gray
-        textfield.text = "I'm just getting a hang on this programmatic UI"
+        textfield.isEnabled = true
+        textfield.text = ""
         return textfield
         
     }()
@@ -56,7 +60,8 @@ class MainView: UIView {
         
         mainButton.translatesAutoresizingMaskIntoConstraints = false
         mainButton.topAnchor.constraint(equalTo: mainTextField.bottomAnchor, constant: 11).isActive = true
-        mainButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11).isActive = true
+       // mainButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11).isActive = true
+        mainButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
     
     

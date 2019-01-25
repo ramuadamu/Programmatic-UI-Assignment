@@ -11,11 +11,13 @@ import UIKit
 class MainViewController: UIViewController {
     
     let mainView = MainView()
+    var message = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .magenta
         self.view.addSubview(mainView)
+        mainView.mainTextField.delegate = self
         mainView.delegate = self
         
 
@@ -24,8 +26,22 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: MainViewDelegate {
+    func typedMessage(str: String) {
+        message = str
+    }
+    
     func seguePressed() {
-        let detail = DetailViewController.init(message: "I'm just getting a hang on programmatic UI" )
+        let detail = DetailViewController.init(message: message )
         navigationController?.pushViewController(detail, animated: true)
+    }
+}
+
+extension MainViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = textField.text {
+           mainView.delegate?.typedMessage(str: text)
+        }
+        textField.resignFirstResponder()
+        return true
     }
 }
